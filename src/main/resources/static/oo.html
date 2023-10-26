@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="./vue/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <style scoped>
+    h3 {
+      margin: 40px 0 0;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    a {
+      color: #42b983;
+    }
+  </style>
+
+</head>
+<body>
+<div id="app3">
+  <el-button @click="txtBtn">扫描txt文件</el-button>
+  <input
+          type="file"
+          @change="inp"
+          id="txt"
+          style="display: none"
+  />
+  <div>{{gg}}</div>
+</div>
+
+</body>
+</html>
+<script>
+
+  new Vue( {
+    el:"#app3",
+    data() {
+      return {
+        gg: "aaaa",
+      };
+    },
+    methods: {
+      // txt文本
+      txtBtn() {
+        document.getElementById("txt").click();
+      },
+      inp(e) {
+        // 从事件对象中获取用户选择的文件
+        const file = e.target.files[0];
+        let name = file.name.split(".").splice(-1).toString();
+        if (name !== "txt") {
+          this.$message.success("文件类型错误,请重新选择文件");
+          return;
+        }
+        //  创建一个 FileReader 对象后，你可以使用该对象的方法来读取文件内容。
+        const reader = new FileReader();
+        if (typeof FileReader === "undefined") {
+          alert("您的浏览器不支持FileReader接口");
+        }
+        // 用于处理文件读取成功
+        reader.onload = (e) => this.$emit("load", this.dealNum(e.target.result));
+        // 将文件内容作为文本读取
+        reader.readAsText(file, "utf-8");
+      },
+      dealNum(item) {
+        this.gg = item;
+        console.log(item);
+      },
+    },
+  })
+</script>

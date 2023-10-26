@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>USER</title>
+  <style scoped>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: lemonchiffon;
+      color: #076aac;
+      font-weight: bold;
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ffffff;
+    }
+
+    td {
+      background-color: #97b8ef;
+      color: black;
+      padding: 8px;
+      border: 1px solid rosybrown;
+    }
+
+    .even-row {
+      background-color: lavender;
+    }
+
+    .odd-row {
+      background-color: #f2f2f2;
+    }
+
+    div {
+      padding: 20px;
+      background-color: seashell;
+    }
+
+    h1 {
+      color: green;
+      text-align: center;
+      background: linear-gradient(200deg, thistle, gold);
+      border-radius: 10px;
+      margin: 0 auto;
+      max-width: 50%;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    img{
+      text-align: center;
+      size: B5;
+      max-height: 400px;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<script src="./vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<body>
+<div id="app2">
+
+
+  <input type="file" ref="fileInput" @change="handleFileUpload">
+  <p>选择的文件：{{ selectedFileName }}</p>
+
+  <h1>经典软件体系结构教学软件</h1>
+  <button @click="getPicture01">使用主程序子程序模式</button>
+  <button @click="getPicture02">使用面向对象体系结构模式</button>
+  <button @click="getPicture03">使用事件系统模式</button>
+  <button @click="getPicture04">使用过滤软件体系结构模式</button>
+  <br>
+  <br>
+
+
+  <button @click="txtBtn">选中out文件</button>
+  <input
+          type="file"
+          @change="inp"
+          id="txt"
+          style="display: none"
+  />
+
+  <div>{{gg}}</div>
+
+
+</div>
+
+
+
+<script>
+  new Vue({
+    el:"#app2",
+    data:{
+      posts:"",
+      selectedFileName: '',
+      gg: "aaaa"
+    },
+    methods:{
+      txtBtn() {
+        document.getElementById("txt").click();
+      },
+
+
+      inp(e) {
+        // 从事件对象中获取用户选择的文件
+        const file = e.target.files[0];
+        let name = file.name.split(".").splice(-1).toString();
+        if (name !== "txt") {
+          this.$message.success("文件类型错误,请重新选择文件");
+          return;
+        }
+        //  创建一个 FileReader 对象后，你可以使用该对象的方法来读取文件内容。
+        const reader = new FileReader();
+        if (typeof FileReader === "undefined") {
+          alert("您的浏览器不支持FileReader接口");
+        }
+        // 用于处理文件读取成功
+        reader.onload = (e) => this.$emit("load", this.dealNum(e.target.result));
+        // 将文件内容作为文本读取
+        reader.readAsText(file, "utf-8");
+      },
+      dealNum(item) {
+        this.gg = item;
+        console.log(item);
+      },
+
+
+      getPicture01:function (){
+
+        console.log(this.selectedFileName)
+        axios.get('http://localhost:8082/main/'+this.selectedFileName)
+
+      },
+      getPicture02:function (){
+        axios.get('http://localhost:8082/object/'+this.selectedFileName)
+
+      },
+      getPicture03:function (){
+        axios.get('http://localhost:8082/event/'+this.selectedFileName);
+
+      },
+      getPicture04:function (){
+        axios.get('http://localhost:8082/pipe/'+this.selectedFileName);
+      },
+      handleFileUpload() {
+        const file = this.$refs.fileInput.files[0];
+        this.selectedFileName = file.name;
+      }
+    }
+
+  });
+
+</script>
+</body>
+</html>
