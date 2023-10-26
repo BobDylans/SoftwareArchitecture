@@ -36,7 +36,7 @@
       font-size: 38px;
       font-weight: bold;
       text-align: center;
-      line-height: 100px;
+      line-height: 25px;
     }
     .input-item {
       display: block;
@@ -73,34 +73,38 @@
 <div class="container" id="app">
   <div class="login-wrapper">
     <div class="header">个人信息簿</div>
+
+    <br>
+    <br>
+    <button @click="getUsers">获取用户信息</button>
+    <table >
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>名字</th><td>&emsp;</td>
+        <th>地址</th><td>&emsp;</td>
+        <th>电话</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr v-for="(postsintem,index) in posts" :key="index" :class="index%2===0?'even-rom':'odd-row'">
+        <td>{{postsintem.id}}</td>
+        <td>{{postsintem.name}}</td><td>&emsp;</td>
+        <td>{{postsintem.address}}</td><td>&emsp;</td>
+        <td>{{postsintem.phone}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
     <div class="form-wrapper">
       <input type="text" name="name" placeholder="name" class="input-item" v-model="username">
       <input type="text" name="address" placeholder="address" class="input-item" v-model="address">
       <input type="text" name="phone" placeholder="phone" class="input-item" v-model="phone">
       <button @click="adduser">添加User</button>
 
-      <br>
-      <br>
-      <button @click="getUsers">获取用户信息</button>
-      <table >
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>名字</th><td>&emsp;</td>
-          <th>地址</th><td>&emsp;</td>
-          <th>电话</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <tr v-for="(postsintem,index) in posts" :key="index" :class="index%2===0?'even-rom':'odd-row'">
-          <td>{{postsintem.id}}</td>
-          <td>{{postsintem.name}}</td><td>&emsp;</td>
-          <td>{{postsintem.address}}</td><td>&emsp;</td>
-          <td>{{postsintem.phone}}</td>
-        </tr>
-        </tbody>
-      </table>
 
       <br>
       <br>

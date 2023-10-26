@@ -74,7 +74,7 @@
     <tr>
       <th>原理图</th>
       <th>文字说明</th>
-      <th>运行结果</th>
+      <th>关键代码</th>
     </tr>
 
     </thead>
@@ -108,28 +108,28 @@
         this.content="没有区分不同角色间的分工,将所有代码和功能在一个类中实现,\n" +
             "这样不便于针对代码进行修改";
         axios.get('http://localhost:8082/main')
-        this.picture="../img/img_4.png"
+        this.picture="../img/img_6.png"
 
       },
         getPicture02:function (){
             this.posts="../img/img_1.png";
             this.content="将不同角色间不同的功能的对象分开进行编程,例如在下图中出现了Input,Output等\t\t类,他们将每一步的功能独立实现,并最终在Main类中进行整合,这样使得代码逻辑更清晰";
             axios.get('http://localhost:8082/object')
-            this.picture="../img/img_4.png"
+            this.picture="../img/img_7.png"
 
         },
         getPicture03:function (){
             this.posts="../img/img_2.png";
             this.content="事件系统可以帮助实现模块之间的解耦。通过使用事件系统，模块之间可以通过发布和订阅事件的方式进行通信，而不需要直接依赖于彼此的具体实现。这样，当一个模块发生变化时，不会对其他模块产生直接的影响，提高了代码的灵活性和可维护性";
             axios.get('http://localhost:8082/event');
-            this.picture="../img/img_4.png"
+            this.picture="../img/img_5.png"
         },
         getPicture04:function (){
             this.posts="../img/img_3.png";
             this.content="过滤软件体系结构允许在数据流经过系统的过程中应用多个过滤器来进行不同的数据处理操作。每个过滤器可以根据特定的需求进行数据转换、过滤、验证、计算或其他操作，从而实现灵活的数据处理流程。\n" +
                 "  过滤软件体系结构的结构清晰，数据流的处理逻辑明确可见。这使得系统的设计和工作原理易于理解，有助于开发人员进行维护、调试和故障排除";
             axios.get('http://localhost:8082/pipe');
-            this.picture="../img/img_4.png"
+            this.picture="../img/img_8.png"
         }
     }
 

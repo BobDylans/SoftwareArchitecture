@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>USER</title>
+  <style scoped>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    #app2 {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: green;
+      text-align: center;
+      background: linear-gradient(200deg, thistle, gold);
+      border-radius: 10px;
+      margin: 0 auto;
+      max-width: 50%;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #076aac;
+      color: white;
+      cursor: pointer;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: lemonchiffon;
+      color: #076aac;
+      font-weight: bold;
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ffffff;
+    }
+
+    td {
+      background-color: #97b8ef;
+      color: black;
+      padding: 8px;
+      border: 1px solid rosybrown;
+    }
+
+    .even-row {
+      background-color: lavender;
+    }
+
+    .odd-row {
+      background-color: #f2f2f2;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+      max-height: 400px;
+      max-width: 400px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<script src="./vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<body>
+<div id="app2">
+  <h1>经典软件体系结构教学软件</h1>
+  <button @click="getPicture01">主程序子程序模式</button>
+  <button @click="getPicture02">面向对象体系结构模式</button>
+  <button @click="getPicture03">事件系统模式</button>
+  <button @click="getPicture04">过滤软件体系结构模式</button>
+
+  <table>
+    <thead>
+    <tr>
+      <th>原理图</th>
+      <th>文字说明</th>
+      <th>运行结果</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><img :src="posts"></td>
+      <td>{{content}}</td>
+      <td><img :src="picture"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  new Vue({
+    el: "#app2",
+    data: {
+      posts: "",
+      content: "",
+      picture: ""
+    },
+    methods: {
+      getPicture01: function () {
+        this.posts = "../img/img.png";
+        this.content = "没有区分不同角色间的分工,将所有代码和功能在一个类中实现,\n" +
+                "这样不便于针对代码进行修改";
+        axios.get('http://localhost:8082/main');
+        this.picture = "../img/img_4.png";
+      },
+      getPicture02: function () {
+        this.posts = "../img/img_1.png";
+        this.content = "将不同角色间不同的功能的对象分开进行编程,例如在下图中出现了Input,Output等\t\t类,他们将每一步的功能独立实现,并最终在Main类中进行整合,这样使得代码逻辑更清晰";
+        axios.get('http://localhost:8082/object');
+        this.picture = "../img/img_4.png";
+      },
+      getPicture03: function () {
+        this.posts = "../img/img_2.png";
+        this.content = "事件系统可以帮助实现模块之间的解耦。通过使用事件系统，模块之间可以通过发布和订阅事件的方式进行通信，而不需要直接依赖于彼此的具体实现。这样，当一个模块发生变化时，不会对其他模块产生直接的影响，提高了代码的灵活性和可维护性";
+        axios.get('http://localhost:8082/event');
+        this.picture = "../img/img_4.png";
+      },
+      getPicture04: function () {
+        this.posts = "../img/img_3.png";
+        this.content = "过滤软件体系结构允许在数据流经过系统的过程中应用多个过滤器来进行不同的数据处理操作。每个过滤器可以根据特定的需求进行数据转换、过滤、验证、计算或其他操作，从而实现灵活的数据处理流程。\n" +
+                "  过滤软件体系结构的结构清晰，数据流的处理逻辑明确可见。这使得系统的设计和工作原理易于理解，有助于开发人员进行维护、调试和故障排除";
+        axios.get('http://localhost:8082/pipe');
+        this.picture = "../img/img_4.png";
+      }
+    }
+  });
+</script>
+</body>
+</html>
